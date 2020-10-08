@@ -424,7 +424,7 @@ var place = {
     mousewheelMoved: function(event) {
         if ($('.canvas-container:hover').length <= 0) return;
         var e = event.originalEvent;
-        e.preventDefault();
+        // e.preventDefault();
         var delta = e.type == "wheel" ? -e.deltaY : (typeof e.wheelDeltaY !== "undefined" ? e.wheelDeltaY : e.wheelDelta);
         this.setZoomScale(this.zooming.zoomScale + (delta / 100));
     },
