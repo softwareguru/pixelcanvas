@@ -1,7 +1,7 @@
 const DataModelManager = require("../util/DataModelManager");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt");
+const argon2 = require("argon2");
 const Pixel = require("./pixel");
 const Access = require("./access");
 const dataTables = require("mongoose-datatables");
@@ -111,24 +111,23 @@ var UserSchema = new Schema({
 UserSchema.pre("save", function(next) {
     let user = this;
     if (this.isModified("password") || this.isNew) {
-        bcrypt.genSalt(10, function(err, salt) {
-            if (err) return next(err);
-            bcrypt.hash(user.password, salt, function(err, hash) {
-                if (err) return next(err);
+        argon2
+            .hash(user.password)
+            .then(function(hash) {
                 user.password = hash;
                 next();
-            });
-        });
+            })
+            .catch(function(err){ next(err) })
     } else {
         return next();
     }
 });
 
 UserSchema.methods.comparePassword = function(passwd, cb) {
-    bcrypt.compare(passwd, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
+    argon2
+        .verify(this.password, passwd)
+        .then(function(isMatch) { cb(null, isMatch); })
+        .catch(function(err) { cb(err) })
 }
 
 UserSchema.methods.toInfo = function(app = null) {
