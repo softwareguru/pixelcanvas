@@ -92,10 +92,9 @@ html(lang="en")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="https://www.dynastic.co", style="margin-right: -5px")
-            img(src="https://assets.dynastic.co/brand/img/icon-46.png", height="20")
-          a.navbar-brand(href="/")
-            | #{config.siteName}
+          a.navbar-brand(href="https://www.bbva.mx/", style="margin-right: -5px")
+            img(src="/img/logo.png", height="20")
+          a.navbar-brand(href="/") Ascender
             if config.debug
               span.label.label-danger.beta-label debug
         .collapse.navbar-collapse#navbar-collapse
@@ -159,7 +158,7 @@ html(lang="en")
     footer.footer
         .container.footer-contents
             div
-                p.text-muted &copy; Dynastic Development
+                p.text-muted &copy; 2020
             .right
                 p: ul.footer-links
                     if hasTOS
@@ -169,7 +168,7 @@ html(lang="en")
                     if hasPP
                         li: a(href="/privacy") Privacy Policy
         +getViewExtensions("footer")
-      
+
     // Scripts
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
