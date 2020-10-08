@@ -102,18 +102,6 @@ html(lang="en")
             +getViewExtensions("nav_left")
             +renderNavItem("Home", "/", "home")
             +getViewExtensions("nav_inside")
-            li.dropdown
-              a.dropdown-toggle(data-toggle="dropdown", href="#", role="button", aria-haspopup="true", aria-expanded="false")
-                i.fa.fa-users.fa-fw
-                .
-                  Community #[span.caret]
-              ul.dropdown-menu
-                +renderNavItem("Official Subreddit", "https://www.reddit.com/r/place20", "reddit-alien")
-                +renderNavItem("Chat on Discord", "https://discord.gg/CgC8FTg", "comments")
-                +renderNavItem("Timelapses", "https://timelapse.canvas.place", "clock-o")
-                +renderNavItem("Merch", "https://merch.canvas.place", "shopping-cart")
-                +renderNavItem("Source Code", "https://www.github.com/dynastic/place", "github")
-            //- +renderNavItem("Donate", "https://www.paypal.me/dynastic", "money")
             if user && userMod
               +renderNavItem(userAdmin ? "Admin" : "Moderator", "/admin", "gavel")
             +getViewExtensions("nav_right")
@@ -127,8 +115,6 @@ html(lang="en")
                     #[span(name="user-dropdown") #{user.usernameSet ? user.name : ""}] #[span.caret]
                 ul.dropdown-menu
                   +renderNavItem("Your Profile", "/account", "user-circle-o")
-                  +renderNavItem("What's New", "javascript:void(0)", "list")
-                  +renderNavItem("Rules", "/guidelines", "handshake-o")
                   li.divider(role="separator")
                   +renderNavItem("Sign Out", `/signout?redirectURL=${redirectURLPart}`, "sign-out")
             else
