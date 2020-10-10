@@ -1273,7 +1273,7 @@ var place = {
     },
 
     layoutTemplates: function() {
-        if(!this.templatesEnabled) return $("#templates-ctn").text("Coming Soon");
+        if(!this.templatesEnabled) return $("#templates-ctn").text("");
         if(!this.templates) this.loadTemplates();
         var templatesContainer = $("#templates-ctn");
         var templateImgs = $("#template-images");
