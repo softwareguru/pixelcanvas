@@ -4,7 +4,7 @@ block dependencies
     - var pinnable = true;
     - var needsLegit = true;
     - var needsHelp = true;
-    - var pageDesc = "Work together to create something amazing. Join thousands of other users and see what happens when you share one huge canvas.";
+    - var pageDesc = "Hackatón";
 block content
     +getViewExtensions("main")
     include views/place
@@ -17,11 +17,10 @@ block content
                 .pages
                     .active(tab-name="What's new")
                         .heading.no-margin
-                            span.site #{config.siteName}
-                            h1 What's New
+                            h1 Qué hay de nuevo
                         #changelog-content
                 .dialog-footer.align-end.
-                    #[small: a#changelog-opt-out(href="javascript:void(0)", data-dialog-dismiss=true) Don't show again]&nbsp;&nbsp;&nbsp;#[a.btn.btn-popping(data-dialog-dismiss=true) Close]
+                    #[small: a#changelog-opt-out(href="javascript:void(0)", data-dialog-dismiss=true) No mostrar de nuevo]&nbsp;&nbsp;&nbsp;#[a.btn.btn-popping(data-dialog-dismiss=true) Cerrar]
     unless user
         include views/auth-dialog
     include views/help-dialog

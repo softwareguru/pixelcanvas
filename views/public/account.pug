@@ -32,31 +32,31 @@ block content
                         if rank !== null
                             div
                                 span.value ##{profileUserInfo.statistics.leaderboardRank.toLocaleString()}
-                                span.name Global rank
+                                span.name Posición global
                         div
                             span.value= profileUser.placeCount.toLocaleString()
-                            span.name pixel#{profileUser.placeCount == 1 ? "" : "s"} placed
+                            span.name pixel#{profileUser.placeCount == 1 ? "" : "es"} colocado#{profileUser.placeCount == 1 ? "" : "s"}
                         if profileUserInfo.statistics.placesThisWeek !== null
                             div
                                 span.value= profileUserInfo.statistics.placesThisWeek.toLocaleString()
-                                span.name pixel#{profileUserInfo.statistics.placesThisWeek == 1 ? "" : "s"} this week
+                                span.name pixel#{profileUserInfo.statistics.placesThisWeek == 1 ? "" : "es"} esta semana
             if isSelf && config.maintenance.notice
                 div.alert.alert-danger
-                    h4 Important infomation regarding your #{config.siteName} account:
+                    h4 Información importante:
                     p !{config.maintenance.notice}
             if hasNewPassword
-                .alert.alert-success #[strong Success!] Your password has been changed successfully!
+                .alert.alert-success #[strong Listo!] Tu contraseña ha sido cambiada correctamente!
                 hr
-            h1 About #{isSelf ? "me" : "them"}
+            h1 Acerca de
             .user-details
-                p #[strong Joined] #[time.timeago(datetime=profileUser.creationDate.toISOString(), title=profileUser.creationDate.toLocaleString()) on loading date].
+                p #[strong Creado] #[time.timeago(datetime=profileUser.creationDate.toISOString(), title=profileUser.creationDate.toLocaleString()) on loading date].
                 if profileUser.lastPlace
-                    p #[strong Last placed] #[time.timeago(datetime=profileUser.lastPlace.toISOString(), title=profileUser.lastPlace.toLocaleString())]
+                    p #[strong Ultimo pixel colocado] #[time.timeago(datetime=profileUser.lastPlace.toISOString(), title=profileUser.lastPlace.toLocaleString())]
                         if pixel && pixel.isLatest
                             .
-                                #{" at "}
+                                #{" @ "}
                             a(href=`/#x=${pixel.point.x}&y=${pixel.point.y}`) (#{pixel.point.x.toLocaleString()}, #{pixel.point.y.toLocaleString()})
-                        . 
+                        .
                             .
             //- Disable this section for OAuth users because they cannot deactivate or change passwords at this time.
             if user && user.admin
@@ -76,11 +76,8 @@ block content
                         li= ua
             if isSelf && !profileUser.isOauth
                 hr
-                h1 My account
-                | #[a.btn.btn-success(data-toggle="modal", id=`${has2FA ? "dis" : "en"}ableTwoFactorAuth`) #{has2FA ? "Dis" : "En"}able Two-Factor Authentication]
-                | #[a.btn.btn-info(data-toggle="modal", data-target="#changePassword") Change Password]
-                | #[a.btn.btn-warning(data-toggle="modal", data-target="#downloadAccount") Download Account Data]
-                | #[a.btn.btn-danger(data-toggle="modal", data-target="#deactivateAccount") Deactivate / Delete Account]
+                h1 Mi cuenta
+                | #[a.btn.btn-info(data-toggle="modal", data-target="#changePassword") Cambiar contraseña]
             if user && user.canPerformActionsOnUser(profileUser)
                 hr
                 h1 Moderator tools

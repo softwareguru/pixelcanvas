@@ -473,13 +473,13 @@ UserSchema.methods.getBadges = function(app) {
     var badges = [];
     if(app) {
         var rank = app.leaderboardManager.getUserRank(this.id);
-        if(rank) badges.push({ text: `Ranked #${rank.toLocaleString()}`, style: rank <= 5 ? "danger" : "info", isRanking: true, lowPriority: true, isLowRanking: rank > 25 });
+        if(rank) badges.push({ text: `Lugar #${rank.toLocaleString()}`, style: rank <= 5 ? "danger" : "info", isRanking: true, lowPriority: true, isLowRanking: rank > 25 });
     }
-    if(this.banned) badges.push({ text: "Banned", style: "danger", title: "This user has been banned for breaking the rules." });
-    else if(this.isMarkedForDeletion()) badges.push({ text: "Deleted", style: "danger", title: "This user chose to delete their account." });
-    else if(this.deactivated) badges.push({ text: "Deactivated", style: "danger", title: "This user chose to deactivate their account." });
-    if(this.admin) badges.push({ text: "Admin", style: "warning", inlineBefore: true, title: "This user is an administrator." });
-    else if(this.moderator) badges.push({ text: "Moderator", shortText: "Mod", style: "warning", inlineBefore: true, title: "This user is a moderator." });
+    if(this.banned) badges.push({ text: "Baneado", style: "danger", title: "Este usuario ha sido baneado por infringir las reglas." });
+    else if(this.isMarkedForDeletion()) badges.push({ text: "Borrado", style: "danger", title: "Este usuario eligió eliminar su cuenta." });
+    else if(this.deactivated) badges.push({ text: "Desactivado", style: "danger", title: "Este usuario eligió desactivar su cuenta." });
+    if(this.admin) badges.push({ text: "Admin", style: "warning", inlineBefore: true, title: "Este usuario es administrador." });
+    else if(this.moderator) badges.push({ text: "Moderador", shortText: "Mod", style: "warning", inlineBefore: true, title: "Este usuario es moderador." });
     return badges;
 }
 

@@ -92,9 +92,9 @@ html(lang="en")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="https://www.bbva.mx/", style="margin-right: -5px")
+          a.navbar-brand(href="/", style="margin-right: -5px")
             img(src="/img/logo.png", height="20")
-          a.navbar-brand(href="/") Ascender
+          a.navbar-brand(href="/") Hackatón
             if config.debug
               span.label.label-danger.beta-label debug
         .collapse.navbar-collapse#navbar-collapse
@@ -114,12 +114,12 @@ html(lang="en")
                   .
                     #[span(name="user-dropdown") #{user.usernameSet ? user.name : ""}] #[span.caret]
                 ul.dropdown-menu
-                  +renderNavItem("Your Profile", "/account", "user-circle-o")
+                  +renderNavItem("Tu perfil", "/account", "user-circle-o")
                   li.divider(role="separator")
-                  +renderNavItem("Sign Out", `/signout?redirectURL=${redirectURLPart}`, "sign-out")
+                  +renderNavItem("Cerrar Sesión", `/signout?redirectURL=${redirectURLPart}`, "sign-out")
             else
               li#nav-auth-link
-                a.btn.btn-sm.btn-nav-auth-link(href=(path == "/" ? "javascript:void(0)" : `/#signup&redirectURL=${redirectURLPart}`), data-place-trigger="openAuthDialog") Get Started
+                a.btn.btn-sm.btn-nav-auth-link(href=(path == "/" ? "javascript:void(0)" : `/#signup&redirectURL=${redirectURLPart}`), data-place-trigger="openAuthDialog") Empezar
             if needsHelp
               +renderNavItem("Help", "javascript:void(0)", "question-circle", false)
             +getViewExtensions("nav_user_right")
@@ -128,10 +128,6 @@ html(lang="en")
       block content
     // EU Cookie Banner
     #cookies-eu-banner(style="display: none;")
-      h4 Cookies on #{config.siteName}
-      p By continuing your use of this service, you accept the use of cookies by Google Analytics to record generalized visit statistics.
-        |  #[a#cookies-eu-more(href="/privacy", style=`display: ${hasPP ? "inline" : "none"}`) Learn more &raquo;]
-      | #[btn#cookies-eu-accept.btn.btn-success Accept] #[btn#cookies-eu-reject.btn.btn-danger Reject]
 - if(typeof isAdmin === "undefined") isAdmin = false;
 - if(typeof needsLegit === "undefined") needsLegit = false;
 - if(typeof user === "undefined") user = null;
@@ -159,10 +155,6 @@ html(lang="en")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
     script(src="https://cdn.polyfill.io/v2/polyfill.min.js")
-    if typeof config.publicRaven !== "undefined" && config.publicRaven
-      script(src="https://cdn.ravenjs.com/3.25.2/raven.min.js", crossorigin="anonymous")
-      script.
-          Raven.config('#{config.publicRaven}').install();
     - js.unshift("https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js", "/js/cookies-eu-banner.min.js", "/js/build/site.js");
     each item in [...new Set(js)]
         script(src=item + "?v=" + resourceVersion)

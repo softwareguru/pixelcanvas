@@ -122,21 +122,21 @@ var popoutController = {
     },
 
     setupChat: function() {
-        var app = this;
-        this.loadChatMessages();
-        $("#chat-send-btn").click(function() {
-            app.sendChatMessage();
-        })
-        $("#chat-input-field").focus(function() {
-            if(!app.ignoreChatFocus) app.scrollToChatBottom();
-            app.ignoreChatFocus = false;
-        })
-        $("#chat-input-field").keydown(function(e) {
-            if((e.keyCode || e.which) != 13) return;
-            app.sendChatMessage();
-        })
+        // var app = this;
+        // this.loadChatMessages();
+        // $("#chat-send-btn").click(function() {
+        //     app.sendChatMessage();
+        // })
+        // $("#chat-input-field").focus(function() {
+        //     if(!app.ignoreChatFocus) app.scrollToChatBottom();
+        //     app.ignoreChatFocus = false;
+        // })
+        // $("#chat-input-field").keydown(function(e) {
+        //     if((e.keyCode || e.which) != 13) return;
+        //     app.sendChatMessage();
+        // })
     },
-    
+
     loadChatMessages: function() {
         var app = this;
         placeAjax.get("/api/chat", null, null).then((response) => {
@@ -267,14 +267,14 @@ var popoutController = {
         }
         var tab = $("#leaderboardTab");
         tab.find("*").remove();
-        if(!this.leaderboard) return this.showTextOnTab("leaderboard", "Loading…");
-        if(this.leaderboard.length <= 0) return this.showTextOnTab("leaderboard", "No leaderboard data");
-        var topPlace = $(`<div class="top-place"><i class="fa fa-trophy big-icon"></i><span class="info">Leader</span></div>`).appendTo(tab);
+        if(!this.leaderboard) return this.showTextOnTab("leaderboard", "Cargando…");
+        if(this.leaderboard.length <= 0) return this.showTextOnTab("leaderboard", "No hay data");
+        var topPlace = $(`<div class="top-place"><i class="fa fa-trophy big-icon"></i><span class="info">Lider</span></div>`).appendTo(tab);
         var userInfo = $("<div>").addClass("leader-info").appendTo(topPlace);
         $("<a>").addClass("name").attr("href", `/@${this.leaderboard[0].username}`).text(this.leaderboard[0].username).appendTo(userInfo);
-        $("<span>").addClass("pixel-label").text("Pixels placed").appendTo(userInfo);
+        $("<span>").addClass("pixel-label").text("Pixeles colocados").appendTo(userInfo);
         var subdetails = $("<div>").addClass("subdetails row-fluid clearfix").appendTo(userInfo);
-        getStatElement("This week", this.leaderboard[0].statistics.placesThisWeek.toLocaleString()).addClass("col-xs-6").appendTo(subdetails);
+        getStatElement("Esta semana", this.leaderboard[0].statistics.placesThisWeek.toLocaleString()).addClass("col-xs-6").appendTo(subdetails);
         getStatElement("Total", this.leaderboard[0].statistics.totalPlaces.toLocaleString()).addClass("col-xs-6").appendTo(subdetails);
         if(this.leaderboard.length > 1) {
             this.leaderboard.forEach((item, index) => {
@@ -285,7 +285,7 @@ var popoutController = {
                     $("<a>").text(item.username).attr("href", `/@${item.username}`).appendTo($("<td>").appendTo(row));
                     var info1 = $("<td>").addClass("stat").appendTo(row);
                     $("<span>").text(item.statistics.placesThisWeek.toLocaleString()).appendTo(info1);
-                    $("<span>").text("This week").addClass("row-label").appendTo(info1);
+                    $("<span>").text("Esta semana").addClass("row-label").appendTo(info1);
                     var info2 = $("<td>").addClass("stat").appendTo(row);
                     $("<span>").text(item.statistics.totalPlaces.toLocaleString()).appendTo(info2);
                     $("<span>").text("Total").addClass("row-label").appendTo(info2);
@@ -306,7 +306,7 @@ var popoutController = {
     },
 
     layoutActiveUsers: function() {
-        if(this.activeUsers.length <= 0) return this.showTextOnTab("active-users", "No Active Users");
+        if(this.activeUsers.length <= 0) return this.showTextOnTab("active-users", "No hay usuarios activos");
         var tab = $("#activeUsersTab");
         tab.find("*").remove();
         var usersCtn = $(`<div>`).appendTo(tab);
@@ -317,11 +317,10 @@ var popoutController = {
                 var badgeCtn = $("<div>").addClass("rank-container").appendTo(row);
                 item.badges.filter((badge) => !badge.isLowRanking).forEach((badge) => renderBadge(badge, false).appendTo(badgeCtn));
             }
-            var lastSeen = $("<span>").text("Last seen ").addClass("last-seen").appendTo(row);
+            var lastSeen = $("<span>").text("Visto ").addClass("last-seen").appendTo(row);
             var date = item.statistics.lastSeenActively;
             $("<time>").attr("datetime", date).attr("title", new Date(date).toLocaleString()).text($.timeago(date)).appendTo($("<strong>").appendTo(lastSeen));
         });
-        $("<p>").addClass("text-muted").text("Users that are both logged in and have either placed a pixel or sent a chat message in the last five minutes will appear here. This tab is updated once a minute, so data may appear delayed.").appendTo(tab);
     },
 
     isInPopOutWindow: function() {
@@ -346,3 +345,25 @@ if($("body").hasClass("is-popped-out")) {
         if(window.location.hash && window.location.hash != "#") popoutController.popoutVisibilityController.changeTab(window.location.hash.substring(1));
     })
 }
+
+$(document).ready(function () {
+  if (typeof($.timeago) != "undefined") {
+      jQuery.timeago.settings.strings = {
+          prefixAgo: "hace",
+          prefixFromNow: "dentro de",
+          suffixAgo: "",
+          suffixFromNow: "",
+          seconds: "menos de un minuto",
+          minute: "un minuto",
+          minutes: "unos %d minutos",
+          hour: "una hora",
+          hours: "%d horas",
+          day: "un día",
+          days: "%d días",
+          month: "un mes",
+          months: "%d meses",
+          year: "un año",
+          years: "%d años"
+      };
+  }
+});

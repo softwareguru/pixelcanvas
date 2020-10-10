@@ -5,22 +5,16 @@
         .pages
             .active(tab-name="sign-up")
                 .heading
-                    span.site #{config.siteName}
-                    h1 Become a member
-                    p.subhead Join the #{config.siteName} community today to start placing.
+                    h1 Crear cuenta
+                    p.subhead Crea tu cuenta para comenzar a colocar pixeles y guardar tus estadísticas.
                 if !config.maintenance || config.maintenance.allowSignups
-                    if config.oauth.dynastic && config.oauth.dynastic.enabled
-                        h3 The best way to sign up
-                        p.text-muted Use a Dynastic Account to sign into canvas.place
-                        a.btn.btn-lg.btn-success(href="/auth/dynastic") Sign in with Dynastic Account
-                        hr
                     form.form-signin(action="/signup")
-                        label.sr-only(for="inputUsernameRegistration") Username
-                        input.form-control#inputUsernameRegistration(type="text", autocomplete="username", placeholder="Username", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
-                        label.sr-only(for="inputPasswordRegistration") Password
-                        input.form-control.form-merge-top#inputPasswordRegistration(type="password", autocomplete="new-password", placeholder="Password", name="password", required)
-                        label.sr-only(for="inputPasswordRegistration2") Password (again)
-                        input.form-control.form-merge-bottom#inputPasswordRegistration2(type="password", autocomplete="new-password", placeholder="Password (again)", name="passwordverify", required)
+                        label.sr-only(for="inputUsernameRegistration") Usuario
+                        input.form-control#inputUsernameRegistration(type="text", autocomplete="username", placeholder="Usuario", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
+                        label.sr-only(for="inputPasswordRegistration") Contraseña
+                        input.form-control.form-merge-top#inputPasswordRegistration(type="password", autocomplete="new-password", placeholder="Contraseña", name="password", required)
+                        label.sr-only(for="inputPasswordRegistration2") Repetir contraseña
+                        input.form-control.form-merge-bottom#inputPasswordRegistration2(type="password", autocomplete="new-password", placeholder="Repetir contraseña", name="passwordverify", required)
                         if captcha
                             .
                                 !{renderCaptcha()}
@@ -29,45 +23,44 @@
                                 label
                                     input(type="checkbox", name="agreeToGuidelines")
                                     span
-                                        | I agree to abide by the 
+                                        | I agree to abide by the
                                         if hasTOS
                                             a(href="/tos") Terms of Service
                                         if hasTOS && hasCommunityGuidelines
-                                            |  and 
+                                            |  and
                                         if hasCommunityGuidelines
                                             a(href="/guidelines") Community Guidelines
                                         | .
                         .checkbox
                             label
                                 input(type="checkbox", name="keepSignedIn", checked)
-                                span Keep me signed in
+                                span Recuérdame
                         .send-section
-                            button.btn.btn-popping(type="submit") Sign Up
+                            button.btn.btn-popping(type="submit") Crear cuenta
                             include social-buttons
                 else
                     br
                     div.alert.alert-danger
-                        h4 Signing up for #{config.siteName} is currently disabled.
+                        h4 El registro se encuentra temporalmente suspendido.
                         if config.maintenance.notice
                             p !{config.maintenance.notice}
 
             div(tab-name="sign-in")
                 .heading
-                    span.site #{config.siteName}
-                    h1 Welcome back
-                    p.subhead Sign in to your account to continue placing and save your stats.
+                    h1 Bienvenido
+                    p.subhead Inicia sesión en tu cuenta para continuar colocando pixeles y guardar tus estadísticas.
                 if config.maintenance.allowLogins || !config.maintenance
                     form.form-signin(action="/signin")
-                        label.sr-only(for="inputUsername") Username
-                        input.form-control#inputUsername(type="text", autocomplete="username", placeholder="Username", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
-                        label.sr-only(for="inputPassword") Password
-                        input.form-control#inputPassword(type="password", autocomplete="current-password", placeholder="Password", name="password", required)
+                        label.sr-only(for="inputUsername") Usuario
+                        input.form-control#inputUsername(type="text", autocomplete="username", placeholder="Usuario", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
+                        label.sr-only(for="inputPassword") Contraseña
+                        input.form-control#inputPassword(type="password", autocomplete="current-password", placeholder="Contraseña", name="password", required)
                         .checkbox
                             label
                                 input#inputKeepSignIn(type="checkbox", name="keepSignedIn", checked)
-                                span Keep me signed in
+                                span Recuérdame
                         .send-section
-                            button.btn.btn-popping(type="submit") Sign in
+                            button.btn.btn-popping(type="submit") Iniciar sesión
                             include social-buttons
                         if config.signInBanner
                             br
@@ -75,7 +68,7 @@
                 else
                     br
                     div.alert.alert-danger
-                        h4 Signing in to #{config.siteName} is currently disabled.
+                        h4 El inicio de sesión se encuentra temporalmente suspendido.
                         if config.maintenance.notice
                             p !{config.maintenance.notice}
             div.hides-switchers(tab-name="2fa-auth")
@@ -95,14 +88,14 @@
             .active(tab-name="sign-up")
                 div
                     .description
-                        span.headline Need an account?
-                        span.action-label Sign up for an account
+                        span.headline ¿Necesitas una cuenta?
+                        span.action-label Regístrate
                     .call-to-action
-                        a.btn.btn-popping.btn-arrow Sign Up
+                        a.btn.btn-popping.btn-arrow Crear cuenta
             div(tab-name="sign-in")
                 div
                     .description
-                        span.headline Already a member?
-                        span.action-label Sign in to your account
+                        span.headline ¿Ya te registraste?
+                        span.action-label Inicia sesión en tu cuenta
                     .call-to-action
-                        a.btn.btn-popping.btn-arrow Sign In
+                        a.btn.btn-popping.btn-arrow Iniciar sesión

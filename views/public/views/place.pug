@@ -4,7 +4,7 @@
     #loading
         .content
             img.icon(src="/img/logo.png", height="100")
-            span.text Loading…
+            span.text Cargando…
     .canvas-container
         include pixel-data
         .button-ctn
@@ -44,12 +44,12 @@
                 .content#palette
                     #menu-content-ctn
                         .menu-section
-                            span.menu-heading Warps
-                            #warps-ctn Loading warps…
+                            span.menu-heading Accesos directos
+                            #warps-ctn Cargando accesos directos…
                     #palette-content-ctn
                         .overlay#sign-in-reminder
-                            span #[a#overlay-sign-in(data-place-trigger="openSignInDialog", href="javascript:void(0)") Sign in] or #[a#overlay-sign-up(data-place-trigger="openSignUpDialog", href="javascript:void(0)") sign up] to start placing!
-                        .overlay#placing-modal Placing…
+                            span #[a#overlay-sign-in(data-place-trigger="openSignInDialog", href="javascript:void(0)") Inicia sesión] o #[a#overlay-sign-up(data-place-trigger="openSignUpDialog", href="javascript:void(0)") regístrate] para comenzar a poner pixeles!
+                        .overlay#placing-modal Colocando…
                         .overlay#place-timer: span
                         .overlay#availability-loading-modal
         canvas#place-canvas(height="100%", width="100%")

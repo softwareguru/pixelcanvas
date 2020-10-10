@@ -320,7 +320,7 @@ var place = {
     getCanvasImage: function() {
         if(this.loadedImage) return;
         var app = this;
-        this.adjustLoadingScreen("Loading…");;
+        this.adjustLoadingScreen("Cargando…");;
         this.loadImage().then((image) => {
             app.adjustLoadingScreen();
             app.canvasController.clearCanvas();
@@ -559,7 +559,7 @@ var place = {
                 });
             }
         } else {
-            overlay.text(this.hasTriedToFetchAvailability ? "An error occurred while loading colours. Retrying…" : "Loading…").show();
+            overlay.text(this.hasTriedToFetchAvailability ? "An error occurred while loading colours. Retrying…" : "Cargando…").show();
         }
     },
 
@@ -737,12 +737,12 @@ var place = {
     },
 
     _adjustZoomButtonText: function() {
-        if (this.zoomButton) $(this.zoomButton).html(`<i class="fa fa-fw fa-search-${this.zooming.zoomedIn ? "minus" : "plus"}"></i>`).attr("title", (this.zooming.zoomedIn ? "Zoom Out" : "Zoom In") + " (spacebar)");
+        if (this.zoomButton) $(this.zoomButton).html(`<i class="fa fa-fw fa-search-${this.zooming.zoomedIn ? "minus" : "plus"}"></i>`).attr("title", (this.zooming.zoomedIn ? "Alejar" : "Acercar") + " (barra espaciadora)");
     },
 
     _adjustGridButtonText: function() {
         var gridShown = $(this.grid).hasClass("show");
-        if (this.gridButton) $(this.gridButton).html(`<i class="fa fa-fw fa-${gridShown ? "square" : "th"}"></i>`).attr("title", (gridShown ? "Hide Grid" : "Show Grid") + " (G)");
+        if (this.gridButton) $(this.gridButton).html(`<i class="fa fa-fw fa-${gridShown ? "square" : "th"}"></i>`).attr("title", (gridShown ? "Esconder retícula" : "Mostrar retícula") + " (G)");
     },
 
     setZoomButton: function(btn) {
@@ -762,7 +762,7 @@ var place = {
             var app = this;
             var clipboard = new Clipboard(btn);
             $(btn).addClass("clickable").tooltip({
-                title: "Copied to clipboard!",
+                title: "Copiado!",
                 trigger: "manual",
             });
             clipboard.on("success", function(e) {
@@ -893,7 +893,7 @@ var place = {
     updatePlaceTimer: function() {
         if(this.isSignedIn()) {
             this.changePlaceTimerVisibility(true);
-            $(this.placeTimer).children("span").text("Loading…");
+            $(this.placeTimer).children("span").text("Cargando…");
             var a = this;
             return placeAjax.get("/api/timer").then((data) => a.doTimer(data.timer)).catch((err) => this.changePlaceTimerVisibility(false));
         }
@@ -926,10 +926,10 @@ var place = {
                 var formattedTime = `${minutes}:${padLeft(seconds.toString(), "0", 2)}`;
                 document.title = `[${formattedTime}] | ${this.originalTitle}`;
                 var shouldShowNotifyButton = !this.notificationHandler.canNotify() && this.notificationHandler.isAbleToRequestPermission();
-                $(this.placeTimer).children("span").html("You may place again in <strong>" + formattedTime + "</strong>." + (shouldShowNotifyButton ? " <a href=\"#\" id=\"notify-me\">Notify me</a>." : ""));
+                $(this.placeTimer).children("span").html("Puedes poner un pixel de nuevo en <strong>" + formattedTime + "</strong>." + (shouldShowNotifyButton ? " <a href=\"#\" id=\"notify-me\">Avísame!</a>." : ""));
                 return;
             } else if(this.fullUnlockTime > 5) { // only notify if full countdown exceeds 5 seconds
-                this.notificationHandler.sendNotification(this.getSiteName(), "You may now place!");
+                this.notificationHandler.sendNotification(this.getSiteName(), "Ya puedes colocar otro pixel!");
             }
         }
         if(this.secondTimer) clearInterval(this.secondTimer);
@@ -1206,7 +1206,7 @@ var place = {
             var warpInfo = $("<div>").addClass("warp-info");
             if(title) $("<span>").addClass("warp-title").text(title).appendTo(warpInfo);
             if(detail) $("<span>").addClass("warp-coordinates").text(detail).appendTo(warpInfo);
-            if(add) warpInfo.addClass("add").attr("title", "Create a warp at the current position").append("<span class=\"warp-title\"><i class=\"fa fa-plus\"></i></span>");
+            if(add) warpInfo.addClass("add").attr("title", "Crear un acceso directo en esta posición").append("<span class=\"warp-title\"><i class=\"fa fa-plus\"></i></span>");
             else {
                 if(typeof deleteClickHandler === "function") $("<div>").addClass("warp-delete").attr("title", `Delete warp '${title}'`).html("<i class=\"fa fa-minus fa-fw\"></i>").click(deleteClickHandler.bind(app, warpInfo)).appendTo(warpInfo);
                 warpInfo.attr("title", `Warp to '${title}'`)
@@ -1215,7 +1215,7 @@ var place = {
             return warpInfo;
         }
         var warpsContainer = $("#warps-ctn");
-        if(!this.warps) return warpsContainer.text("Couldn't load warps.");
+        if(!this.warps) return warpsContainer.text("Error al cargar accesos directos.");
         warpsContainer.html("");
         var warpInfoContainer = $("<div>").addClass("menu-section-content").appendTo($("<div>").addClass("menu-section-content-ctn").appendTo(warpsContainer));
         getWarpInfo(null, null, this.addNewWarpClicked, null, true).appendTo(warpInfoContainer);
@@ -1224,16 +1224,16 @@ var place = {
         } else {
             warpInfoContainer.addClass("empty");
             var explanation = $("<div>").addClass("warp-info explanation").appendTo(warpInfoContainer);
-            $("<span>").addClass("warp-title").text("Warps").appendTo(explanation);
-            $("<span>").addClass("warp-coordinates").text("Use warps to get around the canvas quickly. Save a position and warp to it later on.").appendTo(explanation);
+            $("<span>").addClass("warp-title").text("Accesos directos``").appendTo(explanation);
+            $("<span>").addClass("warp-coordinates").text("Usa accesos directos para moverte por el lienzo rápidamente. Guarda una posición y modifícala más adelante.").appendTo(explanation);
         }
     },
 
     addNewWarpClicked: function(elem, event, input = null) {
-        var warpTitle = window.prompt(`Enter a title for this warp (at current position):`, input || "");
+        var warpTitle = window.prompt(`Elige un nombre para este acceso directo:`, input || "");
         if(!warpTitle || warpTitle.length <= 0) return;
         var pos = this.getCoordinates();
-        placeAjax.post("/api/warps", {x: pos.x, y: pos.y, name: warpTitle}, "An unknown error occurred while attempting to create your warp.").then((response) => {
+        placeAjax.post("/api/warps", {x: pos.x, y: pos.y, name: warpTitle}, "Hubo un error al intentar crear tu acceso directo.").then((response) => {
             if(response.warp) this.warps.unshift(response.warp);
             this.layoutWarps();
         }).catch((err) => {
@@ -1245,7 +1245,7 @@ var place = {
         event.preventDefault();
         event.stopPropagation();
         if(elem.data("deleting") === true) return;
-        if(!window.confirm("Are you sure you want to delete this warp?")) return;
+        if(!window.confirm("Estás seguro que deseas borrar este acceso directo?")) return;
         function setDeletingState(deleting) {
             elem.data("deleting", deleting);
             var icon = elem.find("i");
@@ -1255,7 +1255,7 @@ var place = {
         setDeletingState(true);
         var warpID = elem.attr("data-warp-id");
         if(!warpID) return;
-        placeAjax.delete("/api/warps/" + warpID, null, "An unknown error occurred while attempting to delete the specified warp.", () => setDeletingState(false)).then((response) => {
+        placeAjax.delete("/api/warps/" + warpID, null, "Hubo un error al intentar borrar el acceso directo.", () => setDeletingState(false)).then((response) => {
             var index = this.warps.map((w) => w.id).indexOf(warpID);
             if(index >= 0) this.warps.splice(index, 1);
             this.layoutWarps();
@@ -1468,7 +1468,7 @@ if(place.isSignedIn()) {
         },
 
         layoutChangelogs: function() {
-            if(!this.changelogs) return this.contentElement.addClass("needs-margin").text("Loading…");
+            if(!this.changelogs) return this.contentElement.addClass("needs-margin").text("Cargando…");
             if(this.changelogs.length <= 0) return this.contentElement.addClass("needs-margin").text("There's no changelog to show.");
             this.contentElement.html("").removeClass("needs-margin");
             this.changelogs.forEach((changelog) => {

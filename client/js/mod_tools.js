@@ -361,7 +361,7 @@ function addToContainerForResponse(container, data, lastID, modOnly, limit, allo
             var btn = $(this);
             if(!loading) {
                 loading = true;
-                btn.html("<i class=\"fa fa-spin fa-circle-o-notch\"></i> Loading…").addClass("disabled");
+                btn.html("<i class=\"fa fa-spin fa-circle-o-notch\"></i> Cargando…").addClass("disabled");
                 fetchActions(lastID, modOnly, limit, null, function(data, lastID) {
                     if(!data) {
                         loading = false;
@@ -376,7 +376,7 @@ function addToContainerForResponse(container, data, lastID, modOnly, limit, allo
 }
 
 function loadRecentActionsIntoContainer(container, limit = null, modOnly = false, allowsShowMore = true) {
-    container.html("<i class=\"fa fa-spin fa-circle-o-notch\"></i> Loading…");
+    container.html("<i class=\"fa fa-spin fa-circle-o-notch\"></i> Cargando…");
     fetchActions(null, modOnly, limit, null, function(data, lastID) { 
         if(!data) return $(container).text("Couldn't load mod actions");
         container.html("");
