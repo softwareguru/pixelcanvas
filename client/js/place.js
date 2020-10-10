@@ -245,7 +245,7 @@ var place = {
         $(this.userCountElement).show();
 
         this.getCanvasImage();
-        
+
         this.determineFeatureAvailability();
 
         this.initializeSocketConnection();
@@ -1075,7 +1075,7 @@ var place = {
                     userInfoCtn.find(".field").remove();
                     getUserInfoTableItem("Pixeles totales", data.pixel.user.statistics.totalPlaces.toLocaleString()).appendTo(userInfoCtn);
                     if(data.pixel.user.statistics.placesThisWeek !== null) getUserInfoTableItem("Pixeles esta semana", data.pixel.user.statistics.placesThisWeek.toLocaleString()).appendTo(userInfoCtn);
-                    getUserInfoDateTableItem("Account created", data.pixel.user.creationDate).appendTo(userInfoCtn);
+                    getUserInfoDateTableItem("Cuenta creada", data.pixel.user.creationDate).appendTo(userInfoCtn);
                     var latestCtn = getUserInfoDateTableItem("Último pixel", data.pixel.user.statistics.lastPlace).appendTo(userInfoCtn);
                     if(data.pixel.user.latestPixel && data.pixel.user.latestPixel.isLatest) {
                         var latest = data.pixel.user.latestPixel;
@@ -1271,7 +1271,7 @@ var place = {
     saveTemplates: function() {
         localStorage.setItem("templates", JSON.stringify(this.templates || []));
     },
-    
+
     layoutTemplates: function() {
         if(!this.templatesEnabled) return $("#templates-ctn").text("Coming Soon");
         if(!this.templates) this.loadTemplates();
@@ -1300,7 +1300,7 @@ var place = {
             $("<span>").addClass("warp-coordinates").text("Overlay an image on the canvas to use as a guide for your art.").appendTo(explanation);
         }
     },
-    
+
     addTemplateClicked: function() {
         var app = this;
         $("<input>").attr("type", "file").attr("accept", ".png,.jpg,.gif,.jpeg,.webm,.apng,.svg").hide().on("change", function() {
@@ -1320,7 +1320,7 @@ var place = {
            reader.readAsDataURL(this.files[0]);
         }).appendTo($("body")).click();
     },
-    
+
     deleteTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1331,7 +1331,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     moveTemplateHereClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1341,7 +1341,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     changeOpacityOfTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1354,7 +1354,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     changeScaleOfTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1366,7 +1366,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     moveToTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
