@@ -1073,15 +1073,15 @@ var place = {
                     var userInfoCtn = popover.find(".user-info");
                     userInfoCtn.show();
                     userInfoCtn.find(".field").remove();
-                    getUserInfoTableItem("Total pixels placed", data.pixel.user.statistics.totalPlaces.toLocaleString()).appendTo(userInfoCtn);
-                    if(data.pixel.user.statistics.placesThisWeek !== null) getUserInfoTableItem("Pixels this week", data.pixel.user.statistics.placesThisWeek.toLocaleString()).appendTo(userInfoCtn);
+                    getUserInfoTableItem("Pixeles totales", data.pixel.user.statistics.totalPlaces.toLocaleString()).appendTo(userInfoCtn);
+                    if(data.pixel.user.statistics.placesThisWeek !== null) getUserInfoTableItem("Pixeles esta semana", data.pixel.user.statistics.placesThisWeek.toLocaleString()).appendTo(userInfoCtn);
                     getUserInfoDateTableItem("Account created", data.pixel.user.creationDate).appendTo(userInfoCtn);
-                    var latestCtn = getUserInfoDateTableItem("Last placed", data.pixel.user.statistics.lastPlace).appendTo(userInfoCtn);
+                    var latestCtn = getUserInfoDateTableItem("Último pixel", data.pixel.user.statistics.lastPlace).appendTo(userInfoCtn);
                     if(data.pixel.user.latestPixel && data.pixel.user.latestPixel.isLatest) {
                         var latest = data.pixel.user.latestPixel;
                         var element = $("<div>")
-                        if(data.pixel.point.x == latest.point.x && data.pixel.point.y == latest.point.y) $("<span>").addClass("secondary-info").text("(this pixel)").appendTo(element);
-                        else $("<a>").attr("href", "javascript:void(0)").text(`at (${latest.point.x.toLocaleString()}, ${latest.point.y.toLocaleString()})`).click(() => app.zoomIntoPoint(latest.point.x, latest.point.y, false)).appendTo(element);
+                        if(data.pixel.point.x == latest.point.x && data.pixel.point.y == latest.point.y) $("<span>").addClass("secondary-info").text("(este pixel)").appendTo(element);
+                        else $("<a>").attr("href", "javascript:void(0)").text(`@ (${latest.point.x.toLocaleString()}, ${latest.point.y.toLocaleString()})`).click(() => app.zoomIntoPoint(latest.point.x, latest.point.y, false)).appendTo(element);
                         element.appendTo(latestCtn.find(".value"));
                     }
                     popover.find("#pixel-data-username").attr("href", `/@${data.pixel.user.username}`);
