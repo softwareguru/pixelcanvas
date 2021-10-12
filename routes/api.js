@@ -69,13 +69,13 @@ function APIRouter(app) {
     // Normal APIs
 
     const signUpRatelimit = new Ratelimit(require("../util/RatelimitStore")(), {
-        freeRetries: 3, // 3 sign ups per hour
+        freeRetries: 10, // 10 signups per wait time
         attachResetToRequest: false,
         refreshTimeoutOnRequest: false,
-        minWait: 60 * 60 * 1000, // 1 hour
-        maxWait: 60 * 60 * 1000, // 1 hour, 
+        minWait: 1 * 60 * 1000, // 1 minute
+        maxWait: 1 * 60 * 1000, // 1 minute, 
         failCallback: (req, res, next, nextValidRequestDate) => {
-            res.status(429).json({success: false, error: {message: "You have exceeded the amount of accounts you can create."}});
+            res.status(429).json({success: false, error: {message: "Se ha desactivado temporalmente la creación de cuentas nuevas debido a un alto tráfico. Por favor intenta nuevamente en 5 minutos."}});
         },
         handleStoreError: (error) => app.reportError("Sign up rate limit store error:", error),
         proxyDepth: app.config.trustProxyDepth
@@ -85,8 +85,8 @@ function APIRouter(app) {
         freeRetries: 5, // 5 sign in attempts per 15-60 minutes
         attachResetToRequest: false,
         refreshTimeoutOnRequest: false,
-        minWait: 15 * 60 * 1000, // 15 minutes,
-        maxWait: 60 * 60 * 1000, // 1 hour, 
+        minWait: 5 * 60 * 1000, // 5 minutes,
+        maxWait: 10 * 60 * 1000, // 10 minutes, 
         failCallback: (req, res, next, nextValidRequestDate) => {
             res.status(429).json({success: false, error: {message: "You have exceeded the sign in attempt limit. Try again later."}});
         },
