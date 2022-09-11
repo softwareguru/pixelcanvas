@@ -11,8 +11,6 @@ module.exports = {
     "placeTimeout": 60,
     'enableChangelogs': true,
     'siteName': 'Place',
-    // "raven": "", 
-    // "publicRaven": "", 
     // "bugsnag": "",
     'maintenance': {
         'allowSignups': true, 

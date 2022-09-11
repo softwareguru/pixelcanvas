@@ -33,28 +33,6 @@ for (const method of Object.keys(console)) {
 
 // Error handling
 
-exports.raven = null;
-if (config.raven) {
-    const childProcess = require('child_process');
-    const Raven = require('raven');
-        
-    Raven.config(config.raven, {
-        sendTimeout: 5,
-        release: childProcess.execSync('git rev-parse HEAD').toString().trim(),
-        environment: config.debug ? 'development' : 'production' || 'production',
-        parseUser: function(req) {
-            if (!req.user) return {}; 
-            return {
-                username: req.user.username,
-                id: req.user._id
-            }
-        }
-    }).install((err, sendErrFailed, eventId) => {
-        if (sendErrFailed) exports.error('SENTRY FAIL', eventId, err.stack);
-    });
-    
-    exports.raven = Raven;
-}
 
 exports.bugnsnag = null;
 if (config.bugsnag) {
@@ -69,7 +47,6 @@ exports.capture = (error, extra = null) => {
 
     // extra is an optional param to give stuff context, like user's etc
 
-    if (exports.raven) exports.raven.captureException(error, extra);
     if (exports.bugsnag) exports.bugnsnag.notify(new Error(error), extra);
 
     exports.error('ERROR', error, extra);
