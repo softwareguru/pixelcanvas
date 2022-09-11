@@ -52,20 +52,3 @@ exports.capture = (error, extra = null) => {
     exports.error('ERROR', error, extra);
 }
 
-if (config.cachet && config.cachet.site && config.cachet.apiKey && config.cachet.metricID) {
-    const Cachet = require("cachet-api");
-    const cachet = new Cachet({
-        url: config.cachet.site,
-        apiKey: config.cachet.apiKey
-    });
-        
-    setInterval(() => {
-        cachet.publishMetricPoint({
-            id: config.cachet.metricID,
-            value: errors
-        }).then((response) => {
-            errors = 0;
-            exports.info('CACHET', `Published error data (count: ${errors}) for last checking interval.`);
-        }).catch((err) => exports.capture("Couldn't publish errors to cachet", err));
-    }, 1000 * 60);
-}
