@@ -50,7 +50,7 @@
     "express-recaptcha": "^2.3.0",
     "fs-extra-promise": "^1.0.1",
     "helmet": "^6.0.0",
-    "jimp": "^0.5.4",
+    "jimp": "^0.16.1",
     "jwt-simple": "^0.5.1",
     "marked": "^0.3.6",
     "md5": "^2.2.1",
