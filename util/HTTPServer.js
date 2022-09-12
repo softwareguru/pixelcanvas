@@ -47,8 +47,6 @@ function HTTPServer(app) {
 
         server.set("trust proxy", typeof app.config.trustProxyDepth === "number" ? app.config.trustProxyDepth : 0);
 
-        if (app.logger.raven) server.use(app.logger.raven.requestHandler());
-        if (app.logger.bugsnag) server.use(app.logger.bugsnag.requestHandler);
         
         // Setup passport for auth
         server.use(session({
@@ -129,8 +127,6 @@ function HTTPServer(app) {
         server.use("/auth", require("../routes/oauth")(app));
         server.use("/", require("../routes/public")(app));
 
-        if (app.logger.bugsnag) server.use(app.logger.bugsnag.errorHandler);
-        if (app.logger.raven) server.use(app.logger.raven.errorHandler());
 
         if (!app.config.debug) {
             // Production error handler, no stack traces shown to user

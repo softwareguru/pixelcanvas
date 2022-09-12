@@ -2,13 +2,9 @@ const JwtStrategy = require("passport-jwt").Strategy,
     LocalStrategy = require("passport-local").Strategy,
     ExtractJwt = require("passport-jwt").ExtractJwt,
     GoogleStrategy = require("passport-google-oauth20").Strategy,
-    RedditStrategy = require("passport-reddit").Strategy,
     DiscordStrategy = require("passport-discord").Strategy,
     TwitterStrategy = require("passport-twitter").Strategy,
-    GithubStrategy = require("passport-github").Strategy,
-    FacebookStrategy = require("passport-facebook").Strategy,
-    DynasticStrategy = require("dynastic-provider").Strategy,
-    MicrosoftStrategy = require("passport-microsoft").Strategy;
+    GithubStrategy = require("passport-github").Strategy;
 
 // Get user model
 const User = require("../models/user");
@@ -85,16 +81,6 @@ module.exports = function(passport, app) {
             }));
         }
 
-        if (config.oauth.reddit.enabled) {
-            passport.use(new RedditStrategy({
-                clientID: config.oauth.reddit.clientID,
-                clientSecret: config.oauth.reddit.clientSecret,
-                callbackURL: config.host + "/auth/reddit/callback"
-            }, function(accessToken, refreshToken, profile, done) {
-                OAuthLogin("reddit", profile.name, profile.id, done);
-            }));
-        }
-
         if (config.oauth.github.enabled) {
             passport.use(new GithubStrategy({
                 clientID: config.oauth.github.clientID,
@@ -102,16 +88,6 @@ module.exports = function(passport, app) {
                 callbackURL: config.host + "/auth/github/callback"
             }, function(accessToken, refreshToken, profile, done) {
                 OAuthLogin("github", profile.username, profile.id, done);
-            }));
-        }
-
-        if (config.oauth.facebook.enabled) {
-            passport.use(new FacebookStrategy({
-                clientID: config.oauth.facebook.clientID,
-                clientSecret: config.oauth.facebook.clientSecret,
-                callbackURL: config.host + "/auth/facebook/callback"
-            }, function(accessToken, refreshToken, profile, done) {
-                OAuthLogin("facebook", profile.displayName, profile.id, done);
             }));
         }
 
@@ -136,31 +112,6 @@ module.exports = function(passport, app) {
             }));
         }
 
-        if (config.oauth.microsoft.enabled) {
-            passport.use(new MicrosoftStrategy({
-                clientID: config.oauth.microsoft.clientID,
-                clientSecret: config.oauth.microsoft.clientSecret,
-                callbackURL: config.host + '/auth/microsoft/callback',
-                scope: ['openid']
-            },
-            function(accessToken, refreshToken, profile, done) {
-                OAuthLogin("microsoft", profile.username, profile.id, done);
-            }));
-        }
-
-        if (config.oauth.dynastic && config.oauth.dynastic.enabled) {
-            passport.use(new DynasticStrategy({
-                clientID: config.oauth.dynastic.clientID,
-                clientSecret: config.oauth.dynastic.clientSecret,
-                callbackURL: config.host + '/auth/dynastic/callback',
-                frontendBaseURL: config.oauth.dynastic.frontendBaseURL,
-                apiBaseURL: config.oauth.dynastic.apiBaseURL,
-                scope: ['profile']
-            },
-            function(accessToken, refreshToken, profile, done) {
-                OAuthLogin("dynastic", profile.name, profile.id, done);
-            }));
-        }
     }
 
     passport.serializeUser(function(user, done) {
